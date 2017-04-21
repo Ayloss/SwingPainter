@@ -11,6 +11,7 @@ import com.finalproject.command.DrawLine;
 import com.finalproject.command.DrawOval;
 import com.finalproject.command.DrawRectangle;
 import com.finalproject.command.Eraser;
+import com.finalproject.component.configurepanel.ExportConfigure;
 import com.finalproject.configure.EraserSize;
 import com.finalproject.configure.LineThickness;
 import com.finalproject.command.Brush;
@@ -25,6 +26,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,22 +42,12 @@ public class MyCanvas extends JPanel {
 
 	private DrawCommandStack drawCommandStack = new DrawCommandStack();
 
-	public void setDotted(boolean dotted) {
-		this.dotted = dotted;
-	}
+	private HashMap<String, ExportConfigure> configures;
 
-	public void setFilled(boolean filled) {
-		this.filled = filled;
-	}
-
-	private int currentAction = DrawCommand.DRAW_LINE;
+	private int currentAction = DrawCommand.PENCIL;
 	private Color lineColor = Color.BLACK;
 	private Color fillColor = Color.WHITE;
-	private int lineThickness = LineThickness.THIN.getVal();
-	private int eraserSize = EraserSize.SMALL.getVal();
-	private boolean dotted = false;
-	private boolean filled = false;
-	
+
 	private ArrayList<MouseAdapter> mouseEvents = new ArrayList<>();
 
 	private MouseAdapter eraserEvent = new MouseAdapter() {
@@ -62,17 +55,17 @@ public class MyCanvas extends JPanel {
 		private int x;
 		private int y;
 		private Eraser eraser;
+
 		@Override
 		public void mousePressed(MouseEvent e) {
 			x = e.getX();
 			y = e.getY();
 
-			eraser = new Eraser();
-			eraser.areaSize = eraserSize;
+			eraser = new Eraser(configures.get("eraser").export());
 			eraser.addArea(x, y);
 
 			drawCommandStack.addCommand(eraser);
-			
+
 			repaint();
 		}
 
@@ -80,56 +73,52 @@ public class MyCanvas extends JPanel {
 		public void mouseReleased(MouseEvent e) {
 			x = e.getX();
 			y = e.getY();
-			
+
 			eraser.addArea(x, y);
-			
+
 			repaint();
-			
+
 		}
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			mouseReleased(e);
 		}
-		
+
 	};
 	private MouseAdapter brushEvent = new MouseAdapter() {
-
 
 		private int x;
 		private int y;
 		private Brush brush;
-		
+
 		@Override
 		public void mousePressed(MouseEvent e) {
 			x = e.getX();
 			y = e.getY();
-			
-			brush = new Brush();
-			brush.addPoint(x,y);
+
+			brush = new Brush(configures.get("brush").export(), new Color(lineColor.getRGB()));
+			brush.addPoint(x, y);
 			drawCommandStack.addCommand(brush);
-			
-			brush.LineColor = new Color(lineColor.getRGB());
-			brush.thickness = lineThickness;
-			
-			repaint(20);
+
+			repaint();
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			x = e.getX();
 			y = e.getY();
-			
-			brush.addPoint(x,y);
-			
-			repaint(20);
+
+			brush.addPoint(x, y);
+
+			repaint();
 		}
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			mouseReleased(e);
 		}
-		
+
 	};
 	private MouseAdapter drawLineEvent = new MouseAdapter() {
 
@@ -145,18 +134,9 @@ public class MyCanvas extends JPanel {
 			x2 = e.getX();
 			y2 = e.getY();
 
-			drawLine = new DrawLine();
-			drawLine.shape = new Line();
+			drawLine = new DrawLine(configures.get("line").export(), new Line(x1, y1, x2, y2),
+					new Color(lineColor.getRGB()));
 			drawCommandStack.addCommand(drawLine);
-
-			drawLine.shape.x1 = x1;
-			drawLine.shape.y1 = y1;
-			drawLine.shape.x2 = x1;
-			drawLine.shape.y2 = y1;
-			drawLine.thickness = lineThickness;
-			drawLine.dotted = dotted;
-
-			drawLine.color = new Color(lineColor.getRGB());
 
 			repaint();
 		}
@@ -167,8 +147,7 @@ public class MyCanvas extends JPanel {
 			x2 = e.getX();
 			y2 = e.getY();
 
-			drawLine.shape.x2 = x2;
-			drawLine.shape.y2 = y2;
+			drawLine.setShape(x1, y1, x2, y2);
 
 			repaint();
 		}
@@ -193,45 +172,31 @@ public class MyCanvas extends JPanel {
 			x2 = e.getX();
 			y2 = e.getY();
 
-			drawOval = new DrawOval();
-			drawOval.shape = new Oval();
-			drawOval.shape.x = x1;
-			drawOval.shape.x = y1;
-			drawOval.shape.width = 0;
-			drawOval.shape.height = 0;
-
-			drawOval.lineThickness = lineThickness;
-			drawOval.filled = filled;
-			drawOval.lineColor = new Color(lineColor.getRGB());
-			drawOval.filledColor = new Color(fillColor.getRGB());
+			drawOval = new DrawOval(configures.get("oval").export(), new Oval(x1, y1, 0, 0),
+					new Color(lineColor.getRGB()), new Color(fillColor.getRGB()));
 
 			drawCommandStack.addCommand(drawOval);
+
 			repaint();
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-
 			x2 = e.getX();
 			y2 = e.getY();
 
 			if (x2 >= x1 && y2 >= y1) {
-				drawOval.shape.x = x1;
-				drawOval.shape.y = y1;
-
+				drawOval.setPoint(x1, y1);
 			} else if (x2 >= x1 && y2 <= y1) {
-				drawOval.shape.x = x1;
-				drawOval.shape.y = y2;
+				drawOval.setPoint(x1, y2);
 			} else if (x2 <= x1 && y2 >= y1) {
-				drawOval.shape.x = x2;
-				drawOval.shape.y = y1;
+				drawOval.setPoint(x2, y1);
 			} else if (x2 <= x1 && y2 <= y1) {
-				drawOval.shape.x = x2;
-				drawOval.shape.y = y2;
+				drawOval.setPoint(x2, y2);
 			}
 
-			drawOval.shape.width = Math.abs(x1 - x2);
-			drawOval.shape.height = Math.abs(y1 - y2);
+			drawOval.setWidth(Math.abs(x1 - x2));
+			drawOval.setHeight(Math.abs(y1 - y2));
 
 			repaint();
 		}
@@ -257,17 +222,8 @@ public class MyCanvas extends JPanel {
 			x2 = e.getX();
 			y2 = e.getY();
 
-			drawRectangle = new DrawRectangle();
-			drawRectangle.shape = new Rectangle();
-			drawRectangle.shape.x = x1;
-			drawRectangle.shape.x = y1;
-			drawRectangle.shape.width = 0;
-			drawRectangle.shape.height = 0;
-
-			drawRectangle.lineThickness = lineThickness;
-			drawRectangle.filled = filled;
-			drawRectangle.lineColor = new Color(lineColor.getRGB());
-			drawRectangle.filledColor = new Color(fillColor.getRGB());
+			drawRectangle = new DrawRectangle(configures.get("rectangle").export(), new Rectangle(x1, y1, 0, 0),
+					new Color(lineColor.getRGB()), new Color(fillColor.getRGB()));
 
 			drawCommandStack.addCommand(drawRectangle);
 
@@ -281,21 +237,17 @@ public class MyCanvas extends JPanel {
 			y2 = e.getY();
 
 			if (x2 >= x1 && y2 >= y1) {
-				drawRectangle.shape.x = x1;
-				drawRectangle.shape.y = y1;
+				drawRectangle.setPoint(x1, y1);
 			} else if (x2 >= x1 && y2 <= y1) {
-				drawRectangle.shape.x = x1;
-				drawRectangle.shape.y = y2;
+				drawRectangle.setPoint(x1, y2);
 			} else if (x2 <= x1 && y2 >= y1) {
-				drawRectangle.shape.x = x2;
-				drawRectangle.shape.y = y1;
+				drawRectangle.setPoint(x2, y1);
 			} else if (x2 <= x1 && y2 <= y1) {
-				drawRectangle.shape.x = x2;
-				drawRectangle.shape.y = y2;
+				drawRectangle.setPoint(x2, y2);
 			}
 
-			drawRectangle.shape.width = Math.abs(x1 - x2);
-			drawRectangle.shape.height = Math.abs(y1 - y2);
+			drawRectangle.setWidth(Math.abs(x1 - x2));
+			drawRectangle.setHeight(Math.abs(y1 - y2));
 
 			repaint();
 		}
@@ -321,9 +273,9 @@ public class MyCanvas extends JPanel {
 		mouseEvents.add(drawRectangleEvent);
 		mouseEvents.add(brushEvent);
 		mouseEvents.add(eraserEvent);
-		
-		addMouseListener(drawRectangleEvent);
-		addMouseMotionListener(drawRectangleEvent);
+
+		addMouseListener(drawLineEvent);
+		addMouseMotionListener(drawLineEvent);
 	}
 
 	@Override
@@ -389,22 +341,10 @@ public class MyCanvas extends JPanel {
 		this.fillColor = fillColor;
 	}
 
-	public void setLineThickness(int thickness) {
-		this.lineThickness = thickness;
-	}
-	
-	public void setEraserSize(int eraserSize) {
-		this.eraserSize = eraserSize;
-	}
-	
 
-	public static void main(String[] args) {
-
-		JFrame jFrame = new JFrame();
-		MyCanvas myCanvas = new MyCanvas();
-		jFrame.setBounds(0, 0, 500, 500);
-		jFrame.getContentPane().add(myCanvas);
-		jFrame.setVisible(true);
+	public void setConfigures(HashMap<String, ExportConfigure> configures) {
+		this.configures = configures;
 	}
-	
+
+
 }

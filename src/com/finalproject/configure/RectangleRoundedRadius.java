@@ -1,6 +1,6 @@
 package com.finalproject.configure;
 
-public enum RectangleRoundedSize {
+public enum RectangleRoundedRadius {
 
 	SMAll(2),
 	MIDDLE(5),
@@ -8,7 +8,7 @@ public enum RectangleRoundedSize {
 	
 	private int val;
 	
-	private RectangleRoundedSize(int val) {
+	private RectangleRoundedRadius(int val) {
 		this.val = val;
 	}
 

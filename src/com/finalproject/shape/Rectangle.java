@@ -5,10 +5,6 @@ public class Rectangle {
 	public int width;
 	public int height;
 	
-	public Rectangle() {
-		
-	}
-	
 	public Rectangle(int x, int y, int width, int height) {
 		super();
 		this.x = x;

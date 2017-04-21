@@ -72,7 +72,6 @@ public class Painter {
 		canvasWrapper.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 		
 		myCanvas = new MyCanvas();
-		myCanvas.setFilled(false);
 		canvasWrapper.add(myCanvas);
 		
 		leftToolPanel.setMyCanvas(myCanvas);
@@ -96,7 +95,8 @@ public class Painter {
 		
 		drawOptionPanel.setMyCanvas(myCanvas);
 		
-		
+		leftToolPanel.setDrawOptionPanel(drawOptionPanel);
+		myCanvas.setConfigures(drawOptionPanel.getConfigures());
 		
 	}
 

@@ -38,6 +38,7 @@ public class LeftToolPanel extends JPanel {
 	private JButton airbrush;
 
 	private MyCanvas myCanvas;
+	private DrawOptionPanel drawOptionPanel;
 	
 	public void setMyCanvas(MyCanvas myCanvas) {
 		this.myCanvas = myCanvas;
@@ -49,6 +50,7 @@ public class LeftToolPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				myCanvas.setCurrentAction(DrawCommand.DRAW_LINE);
+				drawOptionPanel.switchOptionPanel("lineOptionPanel");
 			}
 			
 		});
@@ -58,7 +60,7 @@ public class LeftToolPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				myCanvas.setCurrentAction(DrawCommand.DRAW_RECTANGLE);
-
+				drawOptionPanel.switchOptionPanel("rectangleOptionPanel");
 			}
 			
 		});
@@ -68,7 +70,7 @@ public class LeftToolPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				myCanvas.setCurrentAction(DrawCommand.DRAW_OVAL);
-
+				drawOptionPanel.switchOptionPanel("ovalOptionPanel");
 			}
 			
 		});
@@ -78,6 +80,7 @@ public class LeftToolPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				myCanvas.setCurrentAction(DrawCommand.PENCIL);
+				drawOptionPanel.switchOptionPanel("brushOptionPanel");
 			}
 			
 		});
@@ -87,6 +90,7 @@ public class LeftToolPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				myCanvas.setCurrentAction(DrawCommand.ERASER);
+				drawOptionPanel.switchOptionPanel("eraserOptionPanel");
 			}
 		});
 	}
@@ -181,6 +185,10 @@ public class LeftToolPanel extends JPanel {
 		buttonGroup.add(roundedRectangle);
 		buttonGroup.add(airbrush);
 		buttonGroup.add(brush);
+	}
+
+	public void setDrawOptionPanel(DrawOptionPanel drawOptionPanel) {
+		this.drawOptionPanel = drawOptionPanel;
 	}
 
 }
