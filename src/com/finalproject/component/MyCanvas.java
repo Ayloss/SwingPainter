@@ -274,8 +274,8 @@ public class MyCanvas extends JPanel {
 		mouseEvents.add(brushEvent);
 		mouseEvents.add(eraserEvent);
 
-		addMouseListener(drawLineEvent);
-		addMouseMotionListener(drawLineEvent);
+		addMouseListener(brushEvent);
+		addMouseMotionListener(brushEvent);
 	}
 
 	@Override
@@ -324,15 +324,24 @@ public class MyCanvas extends JPanel {
 	public void redo() {
 		drawCommandStack.redo();
 		repaint();
-		System.out.println("redo!");
 	}
 
 	public void undo() {
 		drawCommandStack.undo();
 		repaint();
-		System.out.println("undo!");
 	}
 
+	public void clean() {
+		drawCommandStack.clean();
+		repaint();
+	}
+	
+	public void resizeCanvas(int width,int height) {
+		setPreferredSize(new Dimension(width, height));
+		//设置大小后重绘
+		revalidate();
+	}
+	
 	public void setLineColor(Color lineColor) {
 		this.lineColor = lineColor;
 	}

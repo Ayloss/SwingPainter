@@ -75,74 +75,13 @@ public class DrawOptionPanel extends JPanel {
 		
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
-		
-//		JPanel shapeOption = new JPanel();
-//		shapeOption.setVisible(false);
-//		add(shapeOption, "name_32829464246098");
-//		shapeOption.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
-//		
-//		JCheckBox fill = new JCheckBox("\u586B\u5145");
-//		shapeOption.add(fill);
-//		
-//		JCheckBox dotted = new JCheckBox("\u865A\u7EBF");
-//		shapeOption.add(dotted);
-//		
-//		JLabel lblNewLabel = new JLabel("\u7EBF\u6761\u7C97\u7EC6:");
-//		shapeOption.add(lblNewLabel);
-//		
-//		JComboBox comboBox = new JComboBox();
-//		comboBox.setModel(new DefaultComboBoxModel(LineThickness.values()));
-//		comboBox.setMaximumRowCount(15);
-//		comboBox.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				LineThickness thickness = (LineThickness) comboBox.getSelectedItem();
-//				
-//				myCanvas.setLineThickness(thickness.getVal());
-//			}
-//		});
-//		
-//		shapeOption.add(comboBox);
-//		
-//		JLabel label = new JLabel("\u6A61\u76AE\u5927\u5C0F:");
-//		shapeOption.add(label);
-//		
-//		JComboBox comboBox_1 = new JComboBox();
-//		comboBox_1.setMaximumRowCount(15);
-//		comboBox_1.setModel(new DefaultComboBoxModel(EraserSize.values()));
-//		comboBox_1.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				EraserSize eraserSize = (EraserSize) comboBox_1.getSelectedItem();
-//				
-//				myCanvas.setEraserSize(eraserSize.getVal());
-//			}
-//		});
-//		shapeOption.add(comboBox_1);
-//		
-//		fill.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				myCanvas.setFilled(fill.isSelected());
-//			}
-//		});
-//		
-//		dotted.addActionListener(new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				myCanvas.setDotted(dotted.isSelected());
-//			}
-//		});
-		
-		BrushOptionPanel brushOptionPanel = new BrushOptionPanel();
 		EraserOptionPanel eraserOptionPanel = new EraserOptionPanel();
 		LineOptionPanel lineOptionPanel = new LineOptionPanel();
 		OvalOptionPanel ovalOptionPanel = new OvalOptionPanel();
 		RectangleOptionPanel rectangleOptionPanel = new RectangleOptionPanel();
+		
+		
+		BrushOptionPanel brushOptionPanel = new BrushOptionPanel();
 		
 		add(brushOptionPanel,"brushOptionPanel");
 		add(eraserOptionPanel,"eraserOptionPanel");
@@ -151,6 +90,7 @@ public class DrawOptionPanel extends JPanel {
 		add(rectangleOptionPanel,"rectangleOptionPanel");
 		
 		configures = new HashMap<>();
+		
 		configures.put("brush", brushOptionPanel);
 		configures.put("eraser", eraserOptionPanel);
 		configures.put("line", lineOptionPanel);
