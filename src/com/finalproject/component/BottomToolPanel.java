@@ -5,6 +5,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFrame;
 
 import java.awt.GridLayout;
 import java.awt.Color;
@@ -28,10 +29,7 @@ import javax.swing.JLabel;
  */
 public class BottomToolPanel extends JPanel {
 
-	private Frame parentFrame;
-	public void setParentFrame(Frame parentFrame) {
-		this.parentFrame = parentFrame;
-	}
+	private JFrame parentFrame;
 	
 	private MyCanvas myCanvas;
 	private JPanel lineColorPanel;
@@ -45,14 +43,20 @@ public class BottomToolPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public BottomToolPanel() {
+	public BottomToolPanel(JFrame parentFrame) {
 		
+		//设置父容器
+		this.parentFrame = parentFrame;
+		
+		//以下是容器和布局
+		//大部分代码由WindowBuilder自动生成
 		FlowLayout flowLayout = (FlowLayout) getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		
 		JLabel label1 = new JLabel("\u7EBF\u6761");
 		add(label1);
 		
+		//当前线条颜色容器
 		currentLineColor = new JPanel();
 		currentLineColor.setPreferredSize(new Dimension(30, 30));
 		currentLineColor.setMinimumSize(new Dimension(30, 30));
@@ -61,11 +65,13 @@ public class BottomToolPanel extends JPanel {
 		currentLineColor.setBackground(Color.BLACK);
 		add(currentLineColor);
 		
+		//线条颜色选择面板
 		lineColorPanel = new JPanel();
 		lineColorPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.WHITE, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		add(lineColorPanel);
 		lineColorPanel.setLayout(new GridLayout(2, 0, 0, 0));
 		
+		//以下是12中颜色的容器
 		JPanel lineColor1 = new JPanel();
 		lineColor1.setPreferredSize(new Dimension(20, 20));
 		lineColor1.setBackground(Color.WHITE);
@@ -115,6 +121,7 @@ public class BottomToolPanel extends JPanel {
 		lineColor12.setBackground(Color.YELLOW);
 		lineColorPanel.add(lineColor12);
 
+		//将12种颜色容器添加到数组便于管理
 		lineColors.add(lineColor1);
 		lineColors.add(lineColor2);
 		lineColors.add(lineColor3);
@@ -131,6 +138,7 @@ public class BottomToolPanel extends JPanel {
 		JLabel label2 = new JLabel("\u586B\u5145");
 		add(label2);
 		
+		//当前填充颜色容器
 		JPanel currentFillColor = new JPanel();
 		currentFillColor.setPreferredSize(new Dimension(30, 30));
 		currentFillColor.setMinimumSize(new Dimension(30, 30));
@@ -139,11 +147,13 @@ public class BottomToolPanel extends JPanel {
 		currentFillColor.setBackground(Color.WHITE);
 		add(currentFillColor);
 		
+		//填充颜色选择面板
 		JPanel fillColorPanel = new JPanel();
 		fillColorPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, Color.DARK_GRAY, Color.WHITE, Color.LIGHT_GRAY, Color.DARK_GRAY));
 		add(fillColorPanel);
 		fillColorPanel.setLayout(new GridLayout(2, 0, 0, 0));
 		
+		//以下是12种填充颜色的容器
 		JPanel fillColor1 = new JPanel();
 		fillColor1.setPreferredSize(new Dimension(20, 20));
 		fillColor1.setBackground(Color.WHITE);
@@ -206,6 +216,7 @@ public class BottomToolPanel extends JPanel {
 		fillColors.add(fillColor11);
 		fillColors.add(fillColor12);
 		
+		//循环遍历添加容器点击事件
 		for (JPanel jPanel : lineColors) {
 			
 			jPanel.addMouseListener(new MouseAdapter() {
@@ -218,7 +229,7 @@ public class BottomToolPanel extends JPanel {
 			});
 		}
 		
-		
+
 		for (JPanel jPanel : fillColors) {
 			jPanel.addMouseListener(new MouseAdapter() {
 
@@ -231,6 +242,7 @@ public class BottomToolPanel extends JPanel {
 			});
 		}
 		
+		//点击当前颜色时，弹出颜色选择器
 		currentLineColor.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -240,6 +252,9 @@ public class BottomToolPanel extends JPanel {
 //				myCanvas.setLineColor(currentLineColor.getBackground());
 				
 				Color newColor = JColorChooser.showDialog(parentFrame, "选择线条颜色", currentLineColor.getBackground());
+				if(newColor == null) {
+					return;
+				}
 				currentLineColor.setBackground(newColor);
 				myCanvas.setLineColor(newColor);
 			}
@@ -255,6 +270,11 @@ public class BottomToolPanel extends JPanel {
 //				myCanvas.setFillColor(currentFillColor.getBackground());
 				
 				Color newColor = JColorChooser.showDialog(parentFrame, "选择填充颜色", currentFillColor.getBackground());
+				
+				if(newColor == null) {
+					return;
+				}
+				
 				currentFillColor.setBackground(newColor);
 				myCanvas.setFillColor(newColor);
 				

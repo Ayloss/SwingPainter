@@ -2,12 +2,12 @@ package com.finalproject.command;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,8 +25,8 @@ public class Brush extends DrawCommand{
 	}
 
 	@Override
-	public void execute(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
+	public void execute(BufferedImage image) {
+		Graphics2D g2d = (Graphics2D) image.getGraphics();
 		
 		g2d.setColor(LineColor);
 		BasicStroke basicStroke = new BasicStroke((Integer)configure.get("lineThickness"),BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND);

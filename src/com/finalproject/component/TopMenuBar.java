@@ -13,13 +13,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
 import javax.swing.border.EtchedBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 /**
@@ -112,7 +115,7 @@ public class TopMenuBar extends JPanel {
 
 			if (parameters != null) {
 				myCanvas.resizeCanvas(parameters[0], parameters[1]);
-//				parentFrame.pack();
+				// parentFrame.pack();
 			}
 
 		});
@@ -125,5 +128,25 @@ public class TopMenuBar extends JPanel {
 			}
 
 		});
+
+		saveFile.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser();
+			
+			fileChooser.setCurrentDirectory(new java.io.File("."));
+			fileChooser.setDialogTitle("ѡ�񱣴�Ŀ¼");
+			
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG Files (.jpg)", "jpg");
+			fileChooser.setFileFilter(filter);
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			
+			if(fileChooser.showSaveDialog(parentFrame) == JFileChooser.APPROVE_OPTION) {
+				File path = fileChooser.getSelectedFile();
+				myCanvas.saveImage(path.getPath());
+			}
+		
+		});
+		
+		
 	}
 }

@@ -1,6 +1,6 @@
 package com.finalproject.command;
 
-import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.Stack;
 
 public class DrawCommandStack {
@@ -16,10 +16,10 @@ public class DrawCommandStack {
 		commandsCancelled = new Stack<>();
 	}
 
-	public void executeAll(Graphics g) {
+	public void executeAll(BufferedImage image) {
 		
 		for (DrawCommand drawCommand : commandsExecuted) {
-			drawCommand.execute(g);
+			drawCommand.execute(image);
 		}
 	}
 

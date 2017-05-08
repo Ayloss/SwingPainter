@@ -1,6 +1,6 @@
 package com.finalproject.command;
 
-import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 public abstract class DrawCommand {
@@ -10,6 +10,7 @@ public abstract class DrawCommand {
 	public static final int DRAW_RECTANGLE = 3;
 	public static final int PENCIL = 4;
 	public static final int ERASER = 5;
+	public static final int OilPaint = 6;
 	
 	protected HashMap<String, Object> configure;
 	
@@ -17,7 +18,7 @@ public abstract class DrawCommand {
 		this.configure = configure;
 	}
 
-	public abstract void execute(Graphics g);
+	public abstract void execute(BufferedImage image);
 	
 	public void setConfigure(HashMap<String, Object> configure) {
 		this.configure = configure;

@@ -37,10 +37,12 @@ import java.awt.Insets;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.DefaultComboBoxModel;
 
+import com.finalproject.command.OilPaint;
 import com.finalproject.component.configurepanel.BrushOptionPanel;
 import com.finalproject.component.configurepanel.EraserOptionPanel;
 import com.finalproject.component.configurepanel.ExportConfigure;
 import com.finalproject.component.configurepanel.LineOptionPanel;
+import com.finalproject.component.configurepanel.OilPaintOptionPanel;
 import com.finalproject.component.configurepanel.OvalOptionPanel;
 import com.finalproject.component.configurepanel.RectangleOptionPanel;
 import com.finalproject.configure.EraserSize;
@@ -79,8 +81,7 @@ public class DrawOptionPanel extends JPanel {
 		LineOptionPanel lineOptionPanel = new LineOptionPanel();
 		OvalOptionPanel ovalOptionPanel = new OvalOptionPanel();
 		RectangleOptionPanel rectangleOptionPanel = new RectangleOptionPanel();
-		
-		
+		OilPaintOptionPanel oilPaintOptionPanel = new OilPaintOptionPanel();
 		BrushOptionPanel brushOptionPanel = new BrushOptionPanel();
 		
 		add(brushOptionPanel,"brushOptionPanel");
@@ -88,6 +89,7 @@ public class DrawOptionPanel extends JPanel {
 		add(lineOptionPanel,"lineOptionPanel");
 		add(ovalOptionPanel,"ovalOptionPanel");
 		add(rectangleOptionPanel,"rectangleOptionPanel");
+		add(oilPaintOptionPanel,"oilPaintOptionPanel");
 		
 		configures = new HashMap<>();
 		
@@ -96,6 +98,8 @@ public class DrawOptionPanel extends JPanel {
 		configures.put("line", lineOptionPanel);
 		configures.put("oval", ovalOptionPanel);
 		configures.put("rectangle", rectangleOptionPanel);
+		configures.put("oilPaint", oilPaintOptionPanel);
+		
 	}
 
 	/**

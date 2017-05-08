@@ -93,6 +93,16 @@ public class LeftToolPanel extends JPanel {
 				drawOptionPanel.switchOptionPanel("eraserOptionPanel");
 			}
 		});
+		
+		oilPaint.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				myCanvas.setCurrentAction(DrawCommand.OilPaint);
+				drawOptionPanel.switchOptionPanel("oilPaintOptionPanel");
+			}
+			
+		});
 	}
 	/**
 	 * Create the panel.
