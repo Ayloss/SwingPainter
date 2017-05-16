@@ -1,4 +1,4 @@
-package com.finalproject.component.configurepanel;
+package com.finalproject.component.optionPanel;
 
 import java.util.HashMap;
 
@@ -8,13 +8,20 @@ import javax.swing.JToolBar;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import com.finalproject.configure.LineThickness;
 
-public class BrushOptionPanel extends JPanel implements ExportConfigure{
+import com.finalproject.component.MyCanvas;
+import com.finalproject.configure.LineThickness;
+import javax.swing.JSlider;
+
+public class BrushOptionPanel extends JPanel implements OptionPanel{
 	private JToolBar toolBar;
 	private JLabel label;
-	private JComboBox thickness;
-	public BrushOptionPanel() {
+	private JSlider thickness;
+	private MyCanvas myCanvas;
+	
+	public BrushOptionPanel(MyCanvas myCanvas) {
+		this.myCanvas = myCanvas;
+		
 		setName("brushOptionPanel");
 		FlowLayout flowLayout = (FlowLayout) getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
@@ -25,9 +32,14 @@ public class BrushOptionPanel extends JPanel implements ExportConfigure{
 		label = new JLabel("\u7C97\u7EC6:");
 		toolBar.add(label);
 		
-		thickness = new JComboBox();
+		thickness = new JSlider();
+		thickness.setValue(1);
+		thickness.setPaintTicks(true);
+		thickness.setPaintLabels(true);
+		thickness.setMajorTickSpacing(3);
+		thickness.setMaximum(15);
+		thickness.setMinimum(3);
 		toolBar.add(thickness);
-		thickness.setModel(new DefaultComboBoxModel(LineThickness.values()));
 	}
 
 	
@@ -37,7 +49,7 @@ public class BrushOptionPanel extends JPanel implements ExportConfigure{
 		HashMap<String, Object> configure = new HashMap<>();
 		
 		//ÏßÌõ
-		int lineThickness = ((LineThickness) (thickness.getSelectedItem())).getVal();
+		int lineThickness = thickness.getValue();
 		configure.put("lineThickness", lineThickness);
 		
 		return configure;

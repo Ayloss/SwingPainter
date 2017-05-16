@@ -29,7 +29,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
 /**
- * 主程序
+ * 主程序窗口
  * @author Yixin
  *
  */
@@ -77,33 +77,28 @@ public class Painter {
 		frame.setBounds(100, 100, 865, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//顶部菜单栏
 		topMenuBar = new TopMenuBar(frame);
 		
+		//左侧工具栏
 		leftToolPanel = new LeftToolPanel();
 		frame.getContentPane().add(leftToolPanel, BorderLayout.WEST);
 		
+		//底部工具栏
 		bottomToolPanel = new BottomToolPanel(frame);
 		frame.getContentPane().add(bottomToolPanel, BorderLayout.SOUTH);
 		
+		//顶部外层容器
 		JPanel topPanel = new JPanel();
 		topPanel.setLayout(new GridLayout(2, 1, 0, 0));
 		topPanel.add(topMenuBar);
 		frame.getContentPane().add(topPanel, BorderLayout.NORTH);
-		
-		DrawOptionPanel drawOptionPanel = new DrawOptionPanel();
-		topPanel.add(drawOptionPanel);
-		
-		drawOptionPanel.setMinimumSize(new Dimension(40, 4));
-		
-		leftToolPanel.setDrawOptionPanel(drawOptionPanel);
 		
 		//Canvas的外层容器
 		canvasWrapper = new JPanel();
 		canvasWrapper.setAutoscrolls(true);
 		canvasWrapper.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		frame.getContentPane().add(canvasWrapper, BorderLayout.CENTER);
-		leftToolPanel.addButtonClickEvent();
-		topMenuBar.addMenuItemClickEvent();
 		canvasWrapper.setLayout(null);
 		
 		//由于在JScrollPane里边,JPanel会自动拉伸至容器的大小
@@ -115,6 +110,7 @@ public class Painter {
 		fl_InnerWrapper.setAlignment(FlowLayout.LEFT);
 		InnerWrapper.setBounds(0, 0, 10, 10);
 		
+		//画板
 		myCanvas = new MyCanvas();
 		InnerWrapper.add(myCanvas);
 		myCanvas.setBounds(2, 2, 400, 300);
@@ -123,6 +119,7 @@ public class Painter {
 		scrollPane.setBounds(2, 2, 402, 302);
 		canvasWrapper.add(scrollPane);
 		
+		//外部的包裹的容器伸缩时,同时设置ScrollPane的大小,使其能出现滚动条
 		canvasWrapper.addComponentListener(new ComponentAdapter() {
 
 			@Override
@@ -135,12 +132,16 @@ public class Painter {
 			
 		});
 		
-		leftToolPanel.setMyCanvas(myCanvas);
+		//绘图参数选项
+		DrawOptionPanel drawOptionPanel = new DrawOptionPanel(myCanvas);
+		topPanel.add(drawOptionPanel);
+		drawOptionPanel.setMinimumSize(new Dimension(40, 4));
+		leftToolPanel.setDrawOptionPanel(drawOptionPanel);
 		
+		leftToolPanel.setMyCanvas(myCanvas);
 		topMenuBar.setMyCanvas(myCanvas);
 		bottomToolPanel.setMyCanvas(myCanvas);
 		
-		drawOptionPanel.setMyCanvas(myCanvas);
 		myCanvas.setConfigures(drawOptionPanel.getConfigures());
 		myCanvas.setLayout(null);
 		

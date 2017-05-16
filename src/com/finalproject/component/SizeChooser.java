@@ -19,6 +19,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * 选择图像大小的对话框
+ * @author Yixin
+ *
+ */
 public class SizeChooser extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();

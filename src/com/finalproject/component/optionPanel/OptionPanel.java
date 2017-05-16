@@ -1,4 +1,4 @@
-package com.finalproject.component.configurepanel;
+package com.finalproject.component.optionPanel;
 
 import java.util.HashMap;
 
@@ -8,7 +8,7 @@ import java.util.HashMap;
  * @author Yixin
  *
  */
-public interface ExportConfigure {
+public interface OptionPanel {
 
 	/**
 	 * 导出配置.配置是用一个HashMap存储,以键值对的方式存放.

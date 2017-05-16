@@ -1,13 +1,20 @@
-package com.finalproject.component.configurepanel;
+package com.finalproject.component.optionPanel;
 
 import java.util.HashMap;
 
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+
+import com.finalproject.component.MyCanvas;
+
 import java.awt.FlowLayout;
 
-public class OilPaintOptionPanel extends JPanel implements ExportConfigure {
-	public OilPaintOptionPanel() {
+public class OilPaintOptionPanel extends JPanel implements OptionPanel {
+	private MyCanvas myCanvas;
+	
+	public OilPaintOptionPanel(MyCanvas myCanvas) {
+		this.myCanvas = myCanvas;
+		
 		FlowLayout flowLayout = (FlowLayout) getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
 		

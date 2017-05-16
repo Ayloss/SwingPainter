@@ -1,4 +1,4 @@
-package com.finalproject.component.configurepanel;
+package com.finalproject.component.optionPanel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,16 +6,27 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import java.awt.FlowLayout;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
+import com.finalproject.component.MyCanvas;
 import com.finalproject.configure.EraserSize;
 
-public class EraserOptionPanel extends JPanel implements ExportConfigure{
+public class EraserOptionPanel extends JPanel implements OptionPanel{
 	private JLabel label;
 	private JComboBox size;
 	private JToolBar toolBar;
-	public EraserOptionPanel() {
+	private MyCanvas myCanvas;
+	
+	public EraserOptionPanel(MyCanvas myCanvas) {
+		this.myCanvas = myCanvas;
+		
 		setName("eraserOptionPanel");
 		FlowLayout flowLayout = (FlowLayout) getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
@@ -29,6 +40,10 @@ public class EraserOptionPanel extends JPanel implements ExportConfigure{
 		size = new JComboBox();
 		toolBar.add(size);
 		size.setModel(new DefaultComboBoxModel(EraserSize.values()));
+	
+		size.addActionListener(e->{
+			myCanvas.setEraserCursor();
+		});
 	}
 
 	@Override

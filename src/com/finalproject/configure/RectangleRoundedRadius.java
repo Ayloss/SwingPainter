@@ -2,9 +2,9 @@ package com.finalproject.configure;
 
 public enum RectangleRoundedRadius {
 
-	SMAll(2),
-	MIDDLE(5),
-	LARGE(10);
+	SMAll(5),
+	MIDDLE(10),
+	LARGE(20);
 	
 	private int val;
 	

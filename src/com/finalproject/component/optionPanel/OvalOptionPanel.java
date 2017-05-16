@@ -1,4 +1,4 @@
-package com.finalproject.component.configurepanel;
+package com.finalproject.component.optionPanel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,14 +10,21 @@ import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import com.finalproject.configure.LineThickness;
 
-public class OvalOptionPanel extends JPanel implements ExportConfigure{
+import com.finalproject.component.MyCanvas;
+import com.finalproject.configure.LineThickness;
+import javax.swing.JSlider;
+
+public class OvalOptionPanel extends JPanel implements OptionPanel{
 	private JCheckBox filled;
-	private JComboBox thickness;
+	private JSlider thickness;
 	private JToolBar toolBar_1;
 	private JLabel label;
-	public OvalOptionPanel() {
+	private MyCanvas myCanvas;
+	
+	public OvalOptionPanel(MyCanvas myCanvas) {
+		this.myCanvas = myCanvas;
+		
 		setName("ovalOptionPanel");
 		FlowLayout flowLayout = (FlowLayout) getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
@@ -34,9 +41,14 @@ public class OvalOptionPanel extends JPanel implements ExportConfigure{
 		label = new JLabel("\u8FB9\u6846\u7C97\u7EC6:");
 		toolBar_1.add(label);
 		
-		thickness = new JComboBox();
+		thickness = new JSlider();
+		thickness.setMajorTickSpacing(4);
+		thickness.setPaintTicks(true);
+		thickness.setPaintLabels(true);
+		thickness.setMaximum(20);
+		thickness.setMinimum(4);
+		thickness.setValue(4);
 		toolBar_1.add(thickness);
-		thickness.setModel(new DefaultComboBoxModel(LineThickness.values()));
 	}
 
 	@Override
@@ -47,7 +59,7 @@ public class OvalOptionPanel extends JPanel implements ExportConfigure{
 		//ÊÇ·ñÌî³ä
 		configure.put("filled", filled.isSelected());
 		//±ß¿ò´ÖÏ¸
-		int lineThickness = ((LineThickness)(thickness.getSelectedItem())).getVal();
+		int lineThickness = thickness.getValue();
 		configure.put("lineThickness", lineThickness);
 		
 		return configure;

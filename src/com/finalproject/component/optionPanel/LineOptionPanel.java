@@ -1,4 +1,4 @@
-package com.finalproject.component.configurepanel;
+package com.finalproject.component.optionPanel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +9,8 @@ import javax.swing.JToolBar;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
+
+import com.finalproject.component.MyCanvas;
 import com.finalproject.configure.LineThickness;
 import com.finalproject.shape.Line;
 
@@ -17,18 +19,23 @@ import net.miginfocom.layout.AC;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JSlider;
+import java.awt.Dimension;
 
-public class LineOptionPanel extends JPanel implements ExportConfigure{
+public class LineOptionPanel extends JPanel implements OptionPanel{
 	private JToolBar toolBar;
 	private JCheckBox dotted;
 	private JLabel label1;
 	private JComboBox style;
 	private JToolBar toolBar_1;
-	private JComboBox thickness;
+	private JSlider thickness;
 	private JLabel label2;
+	private MyCanvas myCanvas;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public LineOptionPanel() {
+	public LineOptionPanel(MyCanvas myCanvas) {
+		this.myCanvas = myCanvas;
+		
 		setName("lineOptionPanel");
 		FlowLayout flowLayout = (FlowLayout) getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
@@ -52,8 +59,13 @@ public class LineOptionPanel extends JPanel implements ExportConfigure{
 		label2 = new JLabel("\u7C97\u7EC6:");
 		toolBar_1.add(label2);
 		
-		thickness = new JComboBox();
-		thickness.setModel(new DefaultComboBoxModel(LineThickness.values()));
+		thickness = new JSlider();
+		thickness.setValue(4);
+		thickness.setPaintTicks(true);
+		thickness.setPaintLabels(true);
+		thickness.setMajorTickSpacing(4);
+		thickness.setMinimum(4);
+		thickness.setMaximum(20);
 		toolBar_1.add(thickness);
 		
 		dotted.addActionListener((e)->{
@@ -75,7 +87,7 @@ public class LineOptionPanel extends JPanel implements ExportConfigure{
 		configure.put("style", style.getSelectedItem());
 		
 		//œﬂÃı¥÷œ∏
-		int lineThickness = ((LineThickness) (thickness.getSelectedItem())).getVal();
+		int lineThickness = thickness.getValue();
 		configure.put("lineThickness", lineThickness);
 		
 		return configure;

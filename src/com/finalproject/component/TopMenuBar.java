@@ -46,6 +46,7 @@ public class TopMenuBar extends JPanel {
 	private JMenuItem help;
 	private JMenuItem about;
 	private JMenuItem clean;
+	private JMenuItem open;
 
 	/**
 	 * Create the panel.
@@ -69,6 +70,9 @@ public class TopMenuBar extends JPanel {
 
 		saveFile = new JMenuItem("\u4FDD\u5B58");
 		fileMenu.add(saveFile);
+		
+		open = new JMenuItem("\u6253\u5F00");
+		fileMenu.add(open);
 
 		editMenu = new JMenu("\u7F16\u8F91");
 		menuBar.add(editMenu);
@@ -94,13 +98,15 @@ public class TopMenuBar extends JPanel {
 		about = new JMenuItem("\u5173\u4E8E");
 		helpMenu.add(about);
 
+		addMenuItemClickEvent();
+		
 	}
 
 	public void setMyCanvas(MyCanvas myCanvas) {
 		this.myCanvas = myCanvas;
 	}
 
-	public void addMenuItemClickEvent() {
+	private void addMenuItemClickEvent() {
 		undo.addActionListener(e -> {
 			myCanvas.undo();
 		});
@@ -132,7 +138,7 @@ public class TopMenuBar extends JPanel {
 		saveFile.addActionListener(e -> {
 			JFileChooser fileChooser = new JFileChooser();
 			
-			fileChooser.setCurrentDirectory(new java.io.File("."));
+			fileChooser.setCurrentDirectory(new File("."));
 			fileChooser.setDialogTitle("选择保存目录");
 			
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG Files (.jpg)", "jpg");
@@ -147,6 +153,43 @@ public class TopMenuBar extends JPanel {
 		
 		});
 		
+		open.addActionListener(e->{
+			
+			int s = JOptionPane.showConfirmDialog(parentFrame, "你要先保存你的画图吗?", "保存", JOptionPane.YES_NO_CANCEL_OPTION);
+			if(s == JOptionPane.OK_OPTION) {
+				saveFile.doClick();
+			} else if (s == JOptionPane.CANCEL_OPTION || s == JOptionPane.CLOSED_OPTION){
+				return;
+			}
+			
+			JFileChooser fileChooser = new JFileChooser();
+			
+			fileChooser.setCurrentDirectory(new File("."));
+			fileChooser.setDialogTitle("选择文件");
+			
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files (jpg,jpeg,png)", "jpg","png","jpeg");
+			fileChooser.setFileFilter(filter);
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			
+			if(fileChooser.showSaveDialog(parentFrame) == JFileChooser.APPROVE_OPTION) {
+				File path = fileChooser.getSelectedFile();
+				
+				myCanvas.openImage(path);
+			}
+			
+		});
 		
+		newFile.addActionListener(e->{
+			int s = JOptionPane.showConfirmDialog(parentFrame, "你要先保存你的画图吗?", "保存", JOptionPane.YES_NO_CANCEL_OPTION);
+			
+			if(s == JOptionPane.OK_OPTION) {
+				saveFile.doClick();
+			} else if (s == JOptionPane.CANCEL_OPTION || s == JOptionPane.CLOSED_OPTION){
+				return;
+			}
+			
+			myCanvas.clean();
+		});
 	}
 }

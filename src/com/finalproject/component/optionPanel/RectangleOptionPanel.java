@@ -1,4 +1,4 @@
-package com.finalproject.component.configurepanel;
+package com.finalproject.component.optionPanel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 
+import com.finalproject.component.MyCanvas;
 import com.finalproject.configure.LineThickness;
 import com.finalproject.configure.RectangleRoundedRadius;
 
@@ -14,18 +15,22 @@ import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JSlider;
 
-public class RectangleOptionPanel extends JPanel implements ExportConfigure {
+public class RectangleOptionPanel extends JPanel implements OptionPanel {
 	private JCheckBox filled;
 	private JComboBox thickness;
 	private JToolBar toolBar_1;
 	private JLabel label;
 	private JToolBar toolBar_2;
 	private JCheckBox rounded;
-	private JComboBox radius;
+	private JSlider radius;
 	private JLabel label2;
-
-	public RectangleOptionPanel() {
+	private MyCanvas myCanvas;
+	
+	public RectangleOptionPanel(MyCanvas myCanvas) {
+		this.myCanvas = myCanvas;
+		
 		setName("rectangleOptionPanel");
 		FlowLayout flowLayout = (FlowLayout) getLayout();
 		flowLayout.setAlignment(FlowLayout.LEFT);
@@ -55,11 +60,17 @@ public class RectangleOptionPanel extends JPanel implements ExportConfigure {
 		label2 = new JLabel("\u5706\u89D2\u5C3A\u5BF8");
 		toolBar_2.add(label2);
 		
-		radius = new JComboBox();
-		radius.setModel(new DefaultComboBoxModel(RectangleRoundedRadius.values()));
+		radius = new JSlider();
+		radius.setMajorTickSpacing(5);
+		radius.setPaintLabels(true);
+		radius.setPaintTicks(true);
+		radius.setValue(5);
+		radius.setMaximum(50);
+		radius.setMinimum(5);
 		radius.setEnabled(false);
 		toolBar_2.add(radius);
 		
+		//选中时，启用下拉框
 		rounded.addActionListener((e)->{
 			if(rounded.isSelected()) {
 				radius.setEnabled(true);
@@ -82,7 +93,7 @@ public class RectangleOptionPanel extends JPanel implements ExportConfigure {
 		//是否圆角
 		configure.put("rounded", rounded.isSelected());
 		//圆角尺寸
-		int  roundedRadius = ((RectangleRoundedRadius)(radius.getSelectedItem())).getVal();
+		int  roundedRadius = radius.getValue();
 		configure.put("radius", roundedRadius);
 		
 		return configure;

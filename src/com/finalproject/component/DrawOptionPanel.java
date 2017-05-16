@@ -38,13 +38,13 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.DefaultComboBoxModel;
 
 import com.finalproject.command.OilPaint;
-import com.finalproject.component.configurepanel.BrushOptionPanel;
-import com.finalproject.component.configurepanel.EraserOptionPanel;
-import com.finalproject.component.configurepanel.ExportConfigure;
-import com.finalproject.component.configurepanel.LineOptionPanel;
-import com.finalproject.component.configurepanel.OilPaintOptionPanel;
-import com.finalproject.component.configurepanel.OvalOptionPanel;
-import com.finalproject.component.configurepanel.RectangleOptionPanel;
+import com.finalproject.component.optionPanel.BrushOptionPanel;
+import com.finalproject.component.optionPanel.EraserOptionPanel;
+import com.finalproject.component.optionPanel.LineOptionPanel;
+import com.finalproject.component.optionPanel.OilPaintOptionPanel;
+import com.finalproject.component.optionPanel.OptionPanel;
+import com.finalproject.component.optionPanel.OvalOptionPanel;
+import com.finalproject.component.optionPanel.RectangleOptionPanel;
 import com.finalproject.configure.EraserSize;
 import com.finalproject.configure.LineThickness;
 
@@ -57,7 +57,7 @@ public class DrawOptionPanel extends JPanel {
 
 	private MyCanvas myCanvas;
 	
-	private HashMap<String, ExportConfigure> configures;
+	private HashMap<String, OptionPanel> configures;
 	
 	private CardLayout cardLayout;
 	
@@ -72,17 +72,17 @@ public class DrawOptionPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public DrawOptionPanel() {
+	public DrawOptionPanel(MyCanvas myCanvas) {
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
-		EraserOptionPanel eraserOptionPanel = new EraserOptionPanel();
-		LineOptionPanel lineOptionPanel = new LineOptionPanel();
-		OvalOptionPanel ovalOptionPanel = new OvalOptionPanel();
-		RectangleOptionPanel rectangleOptionPanel = new RectangleOptionPanel();
-		OilPaintOptionPanel oilPaintOptionPanel = new OilPaintOptionPanel();
-		BrushOptionPanel brushOptionPanel = new BrushOptionPanel();
+		EraserOptionPanel eraserOptionPanel = new EraserOptionPanel(myCanvas);
+		LineOptionPanel lineOptionPanel = new LineOptionPanel(myCanvas);
+		OvalOptionPanel ovalOptionPanel = new OvalOptionPanel(myCanvas);
+		RectangleOptionPanel rectangleOptionPanel = new RectangleOptionPanel(myCanvas);
+		OilPaintOptionPanel oilPaintOptionPanel = new OilPaintOptionPanel(myCanvas);
+		BrushOptionPanel brushOptionPanel = new BrushOptionPanel(myCanvas);
 		
 		add(brushOptionPanel,"brushOptionPanel");
 		add(eraserOptionPanel,"eraserOptionPanel");
@@ -110,7 +110,7 @@ public class DrawOptionPanel extends JPanel {
 		cardLayout.show(this, name);
 	}
 	
-	public HashMap<String, ExportConfigure> getConfigures() {
+	public HashMap<String, OptionPanel> getConfigures() {
 		return this.configures;
 	}
 }

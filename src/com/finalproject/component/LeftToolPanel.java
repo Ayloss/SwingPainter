@@ -6,6 +6,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.JSplitPane;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 
@@ -34,17 +35,19 @@ public class LeftToolPanel extends JPanel {
 	private JButton brush;
 	private JButton polygon;
 	private JButton rectangle;
-	private JButton roundedRectangle;
 	private JButton airbrush;
 
 	private MyCanvas myCanvas;
 	private DrawOptionPanel drawOptionPanel;
+	private JButton colorPicker;
+	private JButton curve;
 	
 	public void setMyCanvas(MyCanvas myCanvas) {
 		this.myCanvas = myCanvas;
 	}
 	
-	public void addButtonClickEvent() {
+	private void addButtonClickEvent() {
+		
 		line.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -120,21 +123,24 @@ public class LeftToolPanel extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		brush = new JButton("\u7B14\u5237");
+		brush = new JButton("");
+		brush.setIcon(new ImageIcon("resource/icon/brush.png"));
 		GridBagConstraints gbc_brush = new GridBagConstraints();
 		gbc_brush.insets = new Insets(0, 0, 5, 5);
 		gbc_brush.gridx = 0;
 		gbc_brush.gridy = 0;
 		add(brush, gbc_brush);
 		
-		eraser = new JButton("\u6A61\u76AE");
+		eraser = new JButton("");
+		eraser.setIcon(new ImageIcon("resource/icon/eraser.png"));
 		GridBagConstraints gbc_eraser = new GridBagConstraints();
 		gbc_eraser.insets = new Insets(0, 0, 5, 0);
 		gbc_eraser.gridx = 1;
 		gbc_eraser.gridy = 0;
 		add(eraser, gbc_eraser);
 		
-		oval = new JButton("\u692D\u5706");
+		oval = new JButton("");
+		oval.setIcon(new ImageIcon("resource/icon/oval.png"));
 		GridBagConstraints gbc_oval = new GridBagConstraints();
 		gbc_oval.insets = new Insets(0, 0, 5, 5);
 		gbc_oval.gridx = 0;
@@ -142,14 +148,16 @@ public class LeftToolPanel extends JPanel {
 		add(oval, gbc_oval);
 		buttonGroup.add(oval);
 		
-		line = new JButton("\u76F4\u7EBF");
+		line = new JButton("");
+		line.setIcon(new ImageIcon("resource/icon/line.png"));
 		GridBagConstraints gbc_line = new GridBagConstraints();
 		gbc_line.insets = new Insets(0, 0, 5, 0);
 		gbc_line.gridx = 1;
 		gbc_line.gridy = 1;
 		add(line, gbc_line);
 		
-		rectangle = new JButton("\u77E9\u5F62");
+		rectangle = new JButton("");
+		rectangle.setIcon(new ImageIcon("resource/icon/rectangle.png"));
 		GridBagConstraints gbc_rectangle = new GridBagConstraints();
 		gbc_rectangle.insets = new Insets(0, 0, 5, 5);
 		gbc_rectangle.gridx = 0;
@@ -157,7 +165,8 @@ public class LeftToolPanel extends JPanel {
 		add(rectangle, gbc_rectangle);
 
 		
-		oilPaint = new JButton("\u6CB9\u6F06\u6876");
+		oilPaint = new JButton("");
+		oilPaint.setIcon(new ImageIcon("resource/icon/oilpaint.png"));
 		oilPaint.setActionCommand("");
 		GridBagConstraints gbc_oilPaint = new GridBagConstraints();
 		gbc_oilPaint.insets = new Insets(0, 0, 5, 0);
@@ -166,21 +175,36 @@ public class LeftToolPanel extends JPanel {
 		add(oilPaint, gbc_oilPaint);
 
 		
-		polygon = new JButton("\u591A\u8FB9\u5F62");
+		polygon = new JButton("");
+		polygon.setEnabled(false);
+		polygon.setIcon(new ImageIcon("resource/icon/polygon.png"));
 		GridBagConstraints gbc_polygon = new GridBagConstraints();
 		gbc_polygon.insets = new Insets(0, 0, 5, 5);
 		gbc_polygon.gridx = 0;
 		gbc_polygon.gridy = 3;
 		add(polygon, gbc_polygon);
 		
-		roundedRectangle = new JButton("\u5706\u89D2\u77E9\u5F62");
-		GridBagConstraints gbc_roundedRectangle = new GridBagConstraints();
-		gbc_roundedRectangle.insets = new Insets(0, 0, 0, 5);
-		gbc_roundedRectangle.gridx = 0;
-		gbc_roundedRectangle.gridy = 4;
-		add(roundedRectangle, gbc_roundedRectangle);
+		colorPicker = new JButton("");
+		colorPicker.setEnabled(false);
+		colorPicker.setIcon(new ImageIcon("resource/icon/colorpicker.png"));
+		GridBagConstraints gbc_colorPicker = new GridBagConstraints();
+		gbc_colorPicker.insets = new Insets(0, 0, 5, 0);
+		gbc_colorPicker.gridx = 1;
+		gbc_colorPicker.gridy = 3;
+		add(colorPicker, gbc_colorPicker);
 		
-		airbrush = new JButton("\u55B7\u67AA");
+		curve = new JButton("");
+		curve.setEnabled(false);
+		curve.setIcon(new ImageIcon("resource/icon/curve.png"));
+		GridBagConstraints gbc_curve = new GridBagConstraints();
+		gbc_curve.insets = new Insets(0, 0, 0, 5);
+		gbc_curve.gridx = 0;
+		gbc_curve.gridy = 4;
+		add(curve, gbc_curve);
+		
+		airbrush = new JButton("");
+		airbrush.setEnabled(false);
+		airbrush.setIcon(new ImageIcon("resource/icon/airbrush.png"));
 		airbrush.setActionCommand("");
 		GridBagConstraints gbc_airbrush = new GridBagConstraints();
 		gbc_airbrush.gridx = 1;
@@ -192,9 +216,11 @@ public class LeftToolPanel extends JPanel {
 		buttonGroup.add(eraser);
 		buttonGroup.add(line);
 		buttonGroup.add(polygon);
-		buttonGroup.add(roundedRectangle);
 		buttonGroup.add(airbrush);
 		buttonGroup.add(brush);
+		
+		addButtonClickEvent();
+		
 	}
 
 	public void setDrawOptionPanel(DrawOptionPanel drawOptionPanel) {
