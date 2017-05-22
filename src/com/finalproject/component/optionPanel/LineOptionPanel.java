@@ -22,6 +22,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JSlider;
 import java.awt.Dimension;
 
+/**
+ * 直线选项面板。
+ * 
+ * @author Yixin
+ *
+ */
 public class LineOptionPanel extends JPanel implements OptionPanel{
 	private JToolBar toolBar;
 	private JCheckBox dotted;

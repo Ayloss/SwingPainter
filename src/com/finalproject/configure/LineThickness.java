@@ -1,5 +1,11 @@
 package com.finalproject.configure;
 
+/**
+ * 一个代表线条粗细的枚举类。
+ * 
+ * @author Yixin
+ *
+ */
 public enum LineThickness {
 	
 	THIN(3),

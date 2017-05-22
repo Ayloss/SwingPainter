@@ -1,5 +1,11 @@
 package com.finalproject.configure;
 
+/**
+ * 一个代表橡皮擦尺寸的枚举类。
+ * 
+ * @author Yixin
+ *
+ */
 public enum EraserSize {
 
 	SMALL(10),

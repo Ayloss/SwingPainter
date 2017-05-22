@@ -3,6 +3,15 @@ package com.finalproject.util;
 import java.awt.image.BufferedImage;
 import java.util.Stack;
 
+/**
+ * 基于扫描线的泛洪填充算法。该算法能显著减少压栈的次数。
+ * 基本思路是:
+ * 从点击位置出发，先往上下两侧填充至边界。
+ * 随后往左右侧移动一步，再往上下两个方向遍历，寻找可以填充的位置。
+ * 重复以上过程。
+ * @author Yixin
+ *
+ */
 public class FloodFillScanLineAlgorithm {
 
 	private BufferedImage image;

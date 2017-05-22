@@ -17,6 +17,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JSlider;
 
+/**
+ * 矩形选项面板。
+ * 
+ * @author Yixin
+ *
+ */
 public class RectangleOptionPanel extends JPanel implements OptionPanel {
 	private JCheckBox filled;
 	private JComboBox thickness;

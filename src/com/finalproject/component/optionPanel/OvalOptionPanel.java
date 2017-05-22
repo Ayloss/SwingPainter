@@ -15,6 +15,12 @@ import com.finalproject.component.MyCanvas;
 import com.finalproject.configure.LineThickness;
 import javax.swing.JSlider;
 
+/**
+ * Õ÷‘≤—°œÓ√Ê∞Â°£
+ * 
+ * @author Yixin
+ *
+ */
 public class OvalOptionPanel extends JPanel implements OptionPanel{
 	private JCheckBox filled;
 	private JSlider thickness;

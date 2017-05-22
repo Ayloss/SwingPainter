@@ -49,7 +49,7 @@ import com.finalproject.configure.EraserSize;
 import com.finalproject.configure.LineThickness;
 
 /**
- * 右侧工具栏,用来选择对应图案的一些参数
+ * 上方选项工具栏,用来选择对应图案的一些参数
  * @author Yixin
  *
  */

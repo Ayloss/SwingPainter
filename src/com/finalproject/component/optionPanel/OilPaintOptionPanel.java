@@ -9,6 +9,12 @@ import com.finalproject.component.MyCanvas;
 
 import java.awt.FlowLayout;
 
+/**
+ * ”Õ∆·Õ∞—°œÓ√Ê∞Â°£
+ * 
+ * @author Yixin
+ *
+ */
 public class OilPaintOptionPanel extends JPanel implements OptionPanel {
 	private MyCanvas myCanvas;
 	

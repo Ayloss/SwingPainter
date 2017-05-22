@@ -1,5 +1,11 @@
 package com.finalproject.configure;
 
+/**
+ * 一个代表矩形圆角半径的枚举类。
+ * 
+ * @author Yixin
+ *
+ */
 public enum RectangleRoundedRadius {
 
 	SMAll(5),

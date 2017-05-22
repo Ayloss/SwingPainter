@@ -38,7 +38,8 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 
 /**
- * 画板
+ * 画板。
+ * 画图板的主要功能均封装在此。
  * 
  * @author Yixin
  *

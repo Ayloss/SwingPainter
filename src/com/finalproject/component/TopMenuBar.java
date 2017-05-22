@@ -1,16 +1,19 @@
 package com.finalproject.component;
 
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import java.awt.Event;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -107,14 +110,17 @@ public class TopMenuBar extends JPanel {
 	}
 
 	private void addMenuItemClickEvent() {
+		undo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z,Event.CTRL_MASK));
 		undo.addActionListener(e -> {
 			myCanvas.undo();
 		});
 
+		redo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y,Event.CTRL_MASK));
 		redo.addActionListener(e -> {
 			myCanvas.redo();
 		});
 
+		resize.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,Event.CTRL_MASK));
 		resize.addActionListener(e -> {
 			int[] parameters = SizeChooser.showSizeChooser(parentFrame, (int) myCanvas.getPreferredSize().getWidth(),
 					(int) myCanvas.getPreferredSize().getHeight());
@@ -126,6 +132,7 @@ public class TopMenuBar extends JPanel {
 
 		});
 
+		
 		clean.addActionListener(e -> {
 			// 询问是否清空画板
 			if (JOptionPane.showConfirmDialog(getParent().getParent(), "清空后不可恢复.确定要清空画板吗?", "确认",
@@ -135,6 +142,7 @@ public class TopMenuBar extends JPanel {
 
 		});
 
+		saveFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,Event.CTRL_MASK));
 		saveFile.addActionListener(e -> {
 			JFileChooser fileChooser = new JFileChooser();
 			
@@ -153,6 +161,7 @@ public class TopMenuBar extends JPanel {
 		
 		});
 		
+		open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,Event.CTRL_MASK));
 		open.addActionListener(e->{
 			
 			int s = JOptionPane.showConfirmDialog(parentFrame, "你要先保存你的画图吗?", "保存", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -180,6 +189,7 @@ public class TopMenuBar extends JPanel {
 			
 		});
 		
+		newFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N,Event.CTRL_MASK));
 		newFile.addActionListener(e->{
 			int s = JOptionPane.showConfirmDialog(parentFrame, "你要先保存你的画图吗?", "保存", JOptionPane.YES_NO_CANCEL_OPTION);
 			

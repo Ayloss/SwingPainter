@@ -18,6 +18,12 @@ import javax.swing.ImageIcon;
 import com.finalproject.component.MyCanvas;
 import com.finalproject.configure.EraserSize;
 
+/**
+ * ÏðÆ¤²ÁÑ¡ÏîÃæ°å¡£
+ * 
+ * @author Yixin
+ *
+ */
 public class EraserOptionPanel extends JPanel implements OptionPanel{
 	private JLabel label;
 	private JComboBox size;

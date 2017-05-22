@@ -13,6 +13,12 @@ import com.finalproject.component.MyCanvas;
 import com.finalproject.configure.LineThickness;
 import javax.swing.JSlider;
 
+/**
+ * ± À¢—°œÓ√Ê∞Â°£
+ * 
+ * @author Yixin
+ *
+ */
 public class BrushOptionPanel extends JPanel implements OptionPanel{
 	private JToolBar toolBar;
 	private JLabel label;
